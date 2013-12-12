@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'casa-attribute'
   s.add_dependency 'casa-operation-squash'
 
+  s.add_development_dependency 'rake'
+
 end
