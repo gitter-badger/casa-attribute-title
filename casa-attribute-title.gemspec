@@ -11,5 +11,6 @@ Gem::Specification.new do |s|
   s.files       = ['lib/casa-attribute/title.rb']
 
   s.add_dependency 'casa-attribute'
+  s.add_dependency 'casa-operation-squash'
 
 end
