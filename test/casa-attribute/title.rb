@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'casa-attribute/loader'
+require 'casa/attribute/loader'
 
 class TestCASAAttributeTitle < Test::Unit::TestCase
 
@@ -100,6 +100,10 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
     attr = load_attribute
 
     assert 'original' == attr.transform({
+      'identity' => {
+        'id' => 'ex',
+        'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
+      },
       'attributes' => {
         'use' => {
           'title' => 'original'
@@ -110,6 +114,10 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
     attr = CASA::Attribute::Title.new 'title2'
 
     assert 'original' == attr.transform({
+      'identity' => {
+        'id' => 'ex',
+        'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
+      },
       'attributes' => {
         'use' => {
           'title2' => 'original'
@@ -118,12 +126,8 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
     })
 
     attr = CASA::Attribute::Title.new 'title', {
-      'transform' => Proc.new { |payload|
-        if payload['identity']['id'] == '1' and payload['identity']['originator_id'] == 'a27f7590-8537-4a6b-9c19-35e983b114a4'
-          'replaced'
-        else
-          payload['attributes'][section][name]
-        end
+      'transform' => {
+        '1@a27f7590-8537-4a6b-9c19-35e983b114a4' => 'replaced'
       }
     }
 
