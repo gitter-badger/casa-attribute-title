@@ -21,5 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'casa-operation-transform'
 
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'coveralls'
 
 end
