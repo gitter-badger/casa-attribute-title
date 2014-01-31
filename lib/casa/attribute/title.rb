@@ -1,7 +1,7 @@
 require 'casa/attribute/definition'
-require 'casa/operation/squash/use_latest'
-require 'casa/operation/transform/identity_map'
-require 'casa/operation/filter/list'
+require 'casa/attribute/strategy/squash/use_latest'
+require 'casa/attribute/strategy/transform/identity_map'
+require 'casa/attribute/strategy/filter/list'
 
 module CASA
   module Attribute
@@ -11,11 +11,11 @@ module CASA
 
       section 'use'
 
-      squash CASA::Operation::Squash::UseLatest
+      squash CASA::Attribute::Strategy::Squash::UseLatest
 
-      filter CASA::Operation::Filter::List
+      filter CASA::Attribute::Strategy::Filter::List
 
-      transform CASA::Operation::Transform::IdentityMap
+      transform CASA::Attribute::Strategy::Transform::IdentityMap
 
     end
   end

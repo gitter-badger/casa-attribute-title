@@ -16,9 +16,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'casa-attribute'
-  s.add_dependency 'casa-operation-filter'
-  s.add_dependency 'casa-operation-squash'
-  s.add_dependency 'casa-operation-transform'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'coveralls'
