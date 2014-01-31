@@ -29,7 +29,7 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
 
     attr = load_attribute
 
-    assert 'original' == attr.squash({
+    assert 'original' == attr.in_squash({
       'original' => {
         'use' => {
           'title' => 'original'
@@ -37,7 +37,7 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
       }
     })
 
-    assert 'journal' == attr.squash({
+    assert 'journal' == attr.in_squash({
       'original' => {
         'use' => {
           'title' => 'original'
@@ -52,7 +52,7 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
       ]
     })
 
-    assert 'journal2' == attr.squash({
+    assert 'journal2' == attr.in_squash({
       'original' => {
         'use' => {
           'title' => 'original'
@@ -78,20 +78,24 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
 
     attr = load_attribute
 
-    assert true == attr.filter({
-      'original' => {
-        'use' => {
-        }
-      }
-    })
+    ['in','out'].each do |dir|
 
-    assert true == attr.filter({
-      'original' => {
-        'use' => {
-          'title' => 'original'
+      assert true == attr.send("#{dir}_filter".to_sym, {
+        'original' => {
+          'use' => {
+          }
         }
-      }
-    })
+      })
+
+      assert true == attr.send("#{dir}_filter".to_sym, {
+        'original' => {
+          'use' => {
+            'title' => 'original'
+          }
+        }
+      })
+
+    end
 
   end
 
@@ -99,61 +103,65 @@ class TestCASAAttributeTitle < Test::Unit::TestCase
 
     attr = load_attribute
 
-    assert 'original' == attr.transform({
-      'identity' => {
-        'id' => 'ex',
-        'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
-      },
-      'attributes' => {
-        'use' => {
-          'title' => 'original'
+    ['in','out'].each do |dir|
+
+      assert 'original' == attr.send("#{dir}_transform".to_sym, {
+        'identity' => {
+          'id' => 'ex',
+          'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
+        },
+        'attributes' => {
+          'use' => {
+            'title' => 'original'
+          }
+        }
+      })
+
+      attr = CASA::Attribute::Title.new 'title2'
+
+      assert 'original' == attr.send("#{dir}_transform".to_sym, {
+        'identity' => {
+          'id' => 'ex',
+          'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
+        },
+        'attributes' => {
+          'use' => {
+            'title2' => 'original'
+          }
+        }
+      })
+
+      attr = CASA::Attribute::Title.new 'title', {
+        "#{dir}_transform" => {
+          '1@a27f7590-8537-4a6b-9c19-35e983b114a4' => 'replaced'
         }
       }
-    })
 
-    attr = CASA::Attribute::Title.new 'title2'
-
-    assert 'original' == attr.transform({
-      'identity' => {
-        'id' => 'ex',
-        'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
-      },
-      'attributes' => {
-        'use' => {
-          'title2' => 'original'
+      assert 'replaced' == attr.send("#{dir}_transform".to_sym, {
+        'identity' => {
+          'id' => '1',
+          'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
+        },
+        'attributes' => {
+          'use' => {
+            'title' => 'original'
+          }
         }
-      }
-    })
+      })
 
-    attr = CASA::Attribute::Title.new 'title', {
-      'transform' => {
-        '1@a27f7590-8537-4a6b-9c19-35e983b114a4' => 'replaced'
-      }
-    }
-
-    assert 'replaced' == attr.transform({
-      'identity' => {
-        'id' => '1',
-        'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
-      },
-      'attributes' => {
-        'use' => {
-          'title' => 'original'
+      assert 'original' == attr.send("#{dir}_transform".to_sym, {
+        'identity' => {
+          'id' => '2',
+          'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
+        },
+        'attributes' => {
+          'use' => {
+            'title' => 'original'
+          }
         }
-      }
-    })
+      })
 
-    assert 'original' == attr.transform({
-      'identity' => {
-        'id' => '2',
-        'originator_id' => 'a27f7590-8537-4a6b-9c19-35e983b114a4'
-      },
-      'attributes' => {
-        'use' => {
-          'title' => 'original'
-        }
-      }
-    })
+    end
 
   end
 
