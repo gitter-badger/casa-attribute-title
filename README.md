@@ -1,3 +1,5 @@
 # CASA Attribute Specification - Title
 
+[![Join the chat at https://gitter.im/AppSharing/casa-attribute-title](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AppSharing/casa-attribute-title?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Code Climate](https://codeclimate.com/github/AppSharing/casa-attribute-title.png)](https://codeclimate.com/github/AppSharing/casa-attribute-title) [![Build Status](https://travis-ci.org/AppSharing/casa-attribute-title.png)](https://travis-ci.org/AppSharing/casa-attribute-title) [![Coverage Status](https://coveralls.io/repos/AppSharing/casa-attribute-title/badge.png)](https://coveralls.io/r/AppSharing/casa-attribute-title) [![Dependency Status](https://gemnasium.com/AppSharing/casa-attribute-title.png)](https://gemnasium.com/AppSharing/casa-attribute-title)
